@@ -18,7 +18,6 @@ import (
 	"github.com/osmosis-labs/osmosis/v17/app/keepers"
 	v17 "github.com/osmosis-labs/osmosis/v17/app/upgrades/v17"
 	cltypes "github.com/osmosis-labs/osmosis/v17/x/concentrated-liquidity/types"
-	poolManagerTypes "github.com/osmosis-labs/osmosis/v17/x/poolmanager/types"
 	poolmanagertypes "github.com/osmosis-labs/osmosis/v17/x/poolmanager/types"
 	superfluidtypes "github.com/osmosis-labs/osmosis/v17/x/superfluid/types"
 	"github.com/osmosis-labs/osmosis/v17/x/twap/types"
@@ -420,7 +419,7 @@ func (suite *UpgradeTestSuite) TestUpgrade() {
 				// For testnet, we run through all gamm pools (not just the asset list)
 				for i, pool := range gammPoolsPreUpgrade {
 					// Skip pools that are not balancer pools
-					if pool.GetType() != poolManagerTypes.Balancer {
+					if pool.GetType() != poolmanagertypes.Balancer {
 						indexOffset++
 						continue
 					}
@@ -465,6 +464,7 @@ func (suite *UpgradeTestSuite) TestUpgrade() {
 
 					// Validate that the link is correct.
 					migrationInfo, err := suite.App.GAMMKeeper.GetAllMigrationInfo(suite.Ctx)
+					suite.Require().NoError(err)
 					link := migrationInfo.BalancerToConcentratedPoolLinks[i-indexOffset]
 					suite.Require().Equal(gammPoolId, link.BalancerPoolId)
 					suite.Require().Equal(concentratedPool.GetId(), link.ClPoolId)
