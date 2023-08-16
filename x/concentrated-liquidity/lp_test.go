@@ -11,8 +11,7 @@ import (
 	"github.com/osmosis-labs/osmosis/osmoutils"
 	cl "github.com/osmosis-labs/osmosis/v17/x/concentrated-liquidity"
 	clmodel "github.com/osmosis-labs/osmosis/v17/x/concentrated-liquidity/model"
-	cltypes "github.com/osmosis-labs/osmosis/v17/x/concentrated-liquidity/types"
-	types "github.com/osmosis-labs/osmosis/v17/x/concentrated-liquidity/types"
+	"github.com/osmosis-labs/osmosis/v17/x/concentrated-liquidity/types"
 )
 
 type lpTest struct {
@@ -392,7 +391,7 @@ const (
 func (s *KeeperTestSuite) createPositionWithLockState(ls lockState, poolId uint64, owner sdk.AccAddress, providedCoins sdk.Coins, dur time.Duration) (uint64, sdk.Dec) {
 	var (
 		positionData          cl.CreatePositionData
-		fullRangePositionData cltypes.CreateFullRangePositionData
+		fullRangePositionData types.CreateFullRangePositionData
 		err                   error
 	)
 

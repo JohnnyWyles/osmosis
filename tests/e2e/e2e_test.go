@@ -39,6 +39,7 @@ import (
 
 // TODO: Find more scalable way to do this
 func (s *IntegrationTestSuite) TestAllE2E() {
+	s.T().Parallel()
 	// Zero Dependent Tests
 	s.T().Run("CreateConcentratedLiquidityPoolVoting_And_TWAP", func(t *testing.T) {
 		t.Parallel()

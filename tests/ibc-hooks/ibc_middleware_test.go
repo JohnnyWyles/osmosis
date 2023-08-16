@@ -896,7 +896,7 @@ func (suite *HooksTestSuite) setAllPrefixesToOsmo(registryAddr sdk.AccAddress, c
 	contractKeeper := wasmkeeper.NewDefaultPermissionKeeper(osmosisApp.WasmKeeper)
 
 	// Add all chain channel links in a single message
-	msg := fmt.Sprintf(`{
+	msg := `{
 		"modify_bech32_prefixes": {
 		  "operations": [
 			{"operation": "set", "chain_name": "osmosis", "prefix": "osmo"},
@@ -906,7 +906,7 @@ func (suite *HooksTestSuite) setAllPrefixesToOsmo(registryAddr sdk.AccAddress, c
 		  ]
 		}
 	  }
-	  `)
+	  `
 	_, err := contractKeeper.Execute(ctx, registryAddr, owner, []byte(msg), sdk.NewCoins())
 	suite.Require().NoError(err)
 }
