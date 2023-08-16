@@ -24,13 +24,14 @@ func (suite *HooksTestSuite) SetupAndTestPFM(chainBId Chain, chainBName string, 
 	suite.Require().False(forwarding.Bool())
 
 	transferMsg := NewMsgTransfer(sdk.NewCoin("token0", sdk.NewInt(2000)), targetChain.SenderAccount.GetAddress().String(), sendFrom.String(), suite.GetSenderChannel(chainBId, ChainA), "")
-	suite.FullSend(transferMsg, reverseDirection)
+	_, _, _, err := suite.FullSend(transferMsg, reverseDirection)
+	suite.Require().NoError(err)
 	tokenBA := suite.GetIBCDenom(chainBId, ChainA, "token0")
 
 	ctx := suite.chainA.GetContext()
 
 	msg := fmt.Sprintf(`{"propose_pfm":{"chain": "%s"}}`, chainBName)
-	_, err := contractKeeper.Execute(ctx, registryAddr, sendFrom, []byte(msg), sdk.NewCoins(sdk.NewCoin(tokenBA, sdk.NewInt(1))))
+	_, err = contractKeeper.Execute(ctx, registryAddr, sendFrom, []byte(msg), sdk.NewCoins(sdk.NewCoin(tokenBA, sdk.NewInt(1))))
 	suite.Require().NoError(err)
 
 	forwarding = suite.chainA.QueryContractJson(&suite.Suite, registryAddr, []byte(pfm_msg))
