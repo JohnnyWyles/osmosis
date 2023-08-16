@@ -1685,7 +1685,7 @@ func (s *KeeperTestSuite) SetupUnbondConvertAndStakeTest(ctx sdk.Context, superf
 // We check the following in this method:
 // - if superfluid staked previously, check if the original validator's delegation has been deleted.
 // - Cehck if the delegation of the new validator matches what's expected.
-func (s *KeeperTestSuite) delegationCheck(ctx sdk.Context, sender sdk.AccAddress, originalValAddr, newValAddr sdk.ValAddress, totalAmtConverted sdk.Int) {
+func (s *KeeperTestSuite) delegationCheck(sender sdk.AccAddress, originalValAddr, newValAddr sdk.ValAddress, totalAmtConverted sdk.Int) {
 	if !originalValAddr.Empty() {
 		// check if original superfluid staked lock's delgation is successfully deleted
 		_, found := s.App.StakingKeeper.GetDelegation(s.Ctx, sender, originalValAddr)
