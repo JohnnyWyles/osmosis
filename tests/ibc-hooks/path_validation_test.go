@@ -86,7 +86,7 @@ func (suite *HooksTestSuite) TestPathValidation() {
 	osmosisApp := suite.chainA.GetOsmosisApp()
 	contractKeeper := wasmkeeper.NewDefaultPermissionKeeper(osmosisApp.WasmKeeper)
 
-	msg := fmt.Sprintf(`{
+	msg := `{
 		"modify_bech32_prefixes": {
 		  "operations": [
 			{"operation": "set", "chain_name": "osmosis", "prefix": "osmo"},
@@ -96,7 +96,7 @@ func (suite *HooksTestSuite) TestPathValidation() {
 		  ]
 		}
 	  }
-	  `)
+	  `
 	_, err := contractKeeper.Execute(suite.chainA.GetContext(), registryAddr, owner, []byte(msg), sdk.NewCoins())
 	suite.Require().NoError(err)
 	suite.SetupAndTestPFM(ChainB, "chainB", registryAddr)

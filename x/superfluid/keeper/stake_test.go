@@ -1124,7 +1124,7 @@ func (s *KeeperTestSuite) TestUnbondConvertAndStake() {
 			}
 
 			// lock check
-			s.lockCheck(s.Ctx, *lock, valAddr.String(), true)
+			s.lockCheck(*lock, valAddr.String(), true)
 		})
 	}
 }
@@ -1227,7 +1227,7 @@ func (s *KeeperTestSuite) TestConvertLockToStake() {
 			s.delegationCheck(s.Ctx, sender, originalValAddr, valAddr, totalAmtConverted)
 
 			// Lock check
-			s.lockCheck(s.Ctx, *lock, valAddr.String(), true)
+			s.lockCheck(*lock, valAddr.String(), true)
 
 			// Bank check
 			balanceAfterConvertLockToStake := s.App.BankKeeper.GetAllBalances(s.Ctx, sender)
@@ -1702,7 +1702,7 @@ func (s *KeeperTestSuite) delegationCheck(ctx sdk.Context, sender sdk.AccAddress
 // We check the following in this method:
 // - check if old synth lock has been deleted (both staking & unstaking)
 // - check if old lock has been successfully deleted.
-func (s *KeeperTestSuite) lockCheck(ctx sdk.Context, lock lockuptypes.PeriodLock, valAddr string, checkUnstakingSynthLock bool) {
+func (s *KeeperTestSuite) lockCheck(lock lockuptypes.PeriodLock, valAddr string, checkUnstakingSynthLock bool) {
 	// The synthetic lockup should be deleted.
 	_, err := s.App.LockupKeeper.GetSyntheticLockup(s.Ctx, lock.ID, keeper.StakingSyntheticDenom(lock.Coins[0].Denom, valAddr))
 	s.Require().Error(err)
