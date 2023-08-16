@@ -203,7 +203,6 @@ func (suite *HooksTestSuite) GetReceiverChannel(chainA, chainB Chain) string {
 }
 
 func (suite *HooksTestSuite) TestDeriveIntermediateSender() {
-
 	testCases := []struct {
 		channel         string
 		originalSender  string
@@ -887,7 +886,6 @@ func (suite *HooksTestSuite) setChainChannelLinks(registryAddr sdk.AccAddress, c
 	  `
 	_, err := contractKeeper.Execute(ctx, registryAddr, owner, []byte(msg), sdk.NewCoins())
 	suite.Require().NoError(err)
-
 }
 
 func (suite *HooksTestSuite) setAllPrefixesToOsmo(registryAddr sdk.AccAddress, chainName Chain) {
@@ -1886,7 +1884,7 @@ func (suite *HooksTestSuite) SendAndAckPacketThroughPath(packetPath []Direction,
 	ack, err := ibctesting.ParseAckFromEvents(res.GetEvents())
 	suite.Require().NoError(err)
 
-	for i, _ := range packetPath {
+	for i := range packetPath {
 		packet = packetStack[len(packetStack)-i-1]
 		direction := packetPath[len(packetPath)-i-1]
 		// sender Acknowledges
@@ -1901,7 +1899,6 @@ func (suite *HooksTestSuite) SendAndAckPacketThroughPath(packetPath []Direction,
 		err = senderEndpoint.AcknowledgePacket(packet, ack)
 		suite.Require().NoError(err)
 	}
-
 }
 
 func (suite *HooksTestSuite) TestSwapErrorAfterPreSwapUnwind() {
@@ -1969,7 +1966,6 @@ func (suite *HooksTestSuite) TestSwapErrorAfterPreSwapUnwind() {
 	suite.Require().Equal(1, len(recoverableQueryResponse.Array()))
 	suite.Require().Equal(sender.address.String(), recoverableQueryResponse.Get("0.recovery_addr").String())
 	suite.Require().Equal(sendAmount.String(), recoverableQueryResponse.Get("0.amount").String())
-
 }
 
 func (suite *HooksTestSuite) ExecuteOutpostSwap(initializer, receiverAddr sdk.AccAddress, receiver string) {

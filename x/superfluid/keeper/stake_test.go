@@ -1125,7 +1125,6 @@ func (s *KeeperTestSuite) TestUnbondConvertAndStake() {
 
 			// lock check
 			s.lockCheck(s.Ctx, *lock, valAddr.String(), true)
-
 		})
 	}
 }
@@ -1499,7 +1498,7 @@ func (s *KeeperTestSuite) TestDelegateBaseOnValsetPref() {
 		"error: using valset pref fail, no superfluid address provided": {
 			expectedError: "empty address string is not allowed",
 		},
-		"error: invalid val address provded": {
+		"error: invalid val address provided": {
 			useInvalidValAddr: true,
 			expectedError:     "ecoding bech32 failed: invalid character not part of charset",
 		},
@@ -1680,7 +1679,6 @@ func (s *KeeperTestSuite) SetupUnbondConvertAndStakeTest(ctx sdk.Context, superf
 
 	s.Require().NoError(err)
 	return joinPoolAmt, balancerIntermediaryAcc, balancerLock, poolCreateAcc, poolJoinAcc, balancerPooId, balancerPoolShareOut, valAddr
-
 }
 
 // delegationCheck checks staking related invariants of the test.
@@ -1703,7 +1701,7 @@ func (s *KeeperTestSuite) delegationCheck(ctx sdk.Context, sender sdk.AccAddress
 // lockCheck checks lock related invariants of the test.
 // We check the following in this method:
 // - check if old synth lock has been deleted (both staking & unstaking)
-// - check if old lock has been succesfully deleted.
+// - check if old lock has been successfully deleted.
 func (s *KeeperTestSuite) lockCheck(ctx sdk.Context, lock lockuptypes.PeriodLock, valAddr string, checkUnstakingSynthLock bool) {
 	// The synthetic lockup should be deleted.
 	_, err := s.App.LockupKeeper.GetSyntheticLockup(s.Ctx, lock.ID, keeper.StakingSyntheticDenom(lock.Coins[0].Denom, valAddr))

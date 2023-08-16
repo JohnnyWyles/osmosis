@@ -193,7 +193,6 @@ func (suite *UpgradeTestSuite) TestUpgrade() {
 				suite.App.TwapKeeper.StoreNewRecord(suite.Ctx, t7)
 
 				return expectedCoinsUsedInUpgradeHandler, existingBalancerPoolId
-
 			},
 			func(keepers *keepers.AppKeepers, expectedCoinsUsedInUpgradeHandler sdk.Coins, lastPoolID uint64) {
 				lastPoolIdMinusOne := lastPoolID - 1
@@ -389,7 +388,6 @@ func (suite *UpgradeTestSuite) TestUpgrade() {
 				lastPoolID += 3
 
 				return expectedCoinsUsedInUpgradeHandler, lastPoolID
-
 			},
 			func(keepers *keepers.AppKeepers, expectedCoinsUsedInUpgradeHandler sdk.Coins, lastPoolID uint64) {
 				// Set the bond denom to uosmo
@@ -507,7 +505,6 @@ func (suite *UpgradeTestSuite) TestUpgrade() {
 				migrationInfo, err := suite.App.GAMMKeeper.GetAllMigrationInfo(suite.Ctx)
 				suite.Require().Equal(int(numPoolsEligibleForMigration), len(migrationInfo.BalancerToConcentratedPoolLinks))
 				suite.Require().NoError(err)
-
 			},
 		},
 		{
